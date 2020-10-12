@@ -15,6 +15,7 @@ public class Context {
     public static final int LF=10;
     public static final int STATUS_200_OK=200;
     public static final int STATUS_404_NOT_FOUND=404;
+    public static final int STATUS_500_INTERNAL_ERROR=500;
     public static final Map<String, String> servletMapping = new HashMap<String, String>();
     public static final Map<String, String> mimeTypeMapping = new HashMap<String, String>();
     public static final Map<Integer, String> statusMsgMapping = new HashMap<>();

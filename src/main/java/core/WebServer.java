@@ -66,14 +66,14 @@ public class WebServer {
                             | InvocationTargetException e) {
                         e.printStackTrace();
                     }
-                }else{
+                } else{
                     String path = "webapps" + File.separator + requestLine;
                     File file = new File(path);
                     if(file.exists()){
                         response.forward(file);
                         System.out.println("资源请求响应完毕");
                     }else{
-                        response.forward(new File("webapps"+File.separator+"404_NOT_FOUND_PAGE.html"));
+                        response.forward(new File("webapps"+File.separator+"404_NOT_FOUND_PAGE.html"), Context.STATUS_404_NOT_FOUND);
                         System.out.println("对不起, 您所请求的资源不存在!!!");
                     }
                 }

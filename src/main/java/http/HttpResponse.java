@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,8 @@ public class HttpResponse {
     private final OutputStream out;
     private final Map<String, String> headers = new HashMap<>();
     private File entity;
+    private int statusCode;
+    private String statusMsg;
 
     public HttpResponse(OutputStream out){
         this.out = out;
@@ -27,9 +30,9 @@ public class HttpResponse {
     }
 
     private void sendStatusLine(){
-        String statusLine = "HTTP/1.1 200 OK";
+        String statusLine = "HTTP/1.1 "+statusCode+" "+statusMsg;
         println(statusLine);
-        System.out.println("状态行信息发送完毕！");
+        System.out.println("状态行信息发送完毕！--\""+statusLine+"\"");
     }
 
     private void sendHeaders(){
@@ -80,6 +83,19 @@ public class HttpResponse {
 
         setContentLength(contentLength);
         setContentType(contentType);
+        setStatusCode(Context.STATUS_200_OK);
+        setEntity(file);
+        flush();
+    }
+    public void forward(File file, int statusCode){
+        int index = file.getName().lastIndexOf(".");
+        String extension = file.getName().substring(index + 1);
+        String contentType = Context.mimeTypeMapping.get(extension);
+        int contentLength = (int)file.length();
+
+        setContentLength(contentLength);
+        setContentType(contentType);
+        setStatusCode(statusCode);
         setEntity(file);
         flush();
     }
@@ -94,5 +110,10 @@ public class HttpResponse {
 
     public void setEntity(File file) {
         entity = file;
+    }
+
+    public void setStatusCode(int statusCode){
+        this.statusCode = statusCode;
+        this.statusMsg = Context.statusMsgMapping.get(statusCode);
     }
 }

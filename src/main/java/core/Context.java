@@ -13,9 +13,11 @@ import java.util.Map;
 public class Context {
     public static final int CR=13;
     public static final int LF=10;
+    public static final int STATUS_200_OK=200;
+    public static final int STATUS_404_NOT_FOUND=404;
     public static final Map<String, String> servletMapping = new HashMap<String, String>();
     public static final Map<String, String> mimeTypeMapping = new HashMap<String, String>();
-
+    public static final Map<Integer, String> statusMsgMapping = new HashMap<>();
     static {
         init();
     }
@@ -23,6 +25,7 @@ public class Context {
     private static void init(){
         initServletMapping();
         initMimeTypeMapping();
+        initStatusMsgMapping();
     }
 
     private static Element getRootFromXML(String url) {
@@ -59,6 +62,18 @@ public class Context {
                 String extension = e.elementTextTrim("extension");
                 String contentType = e.elementTextTrim("mime-type");
                 mimeTypeMapping.put(extension, contentType);
+            }
+        }
+    }
+
+    private static void initStatusMsgMapping(){
+        Element root = getRootFromXML("conf" + File.separator + "statusMsgMapping.xml");
+        if(root != null){
+            List<Element> list = root.elements("status");
+            for(Element e : list){
+                Integer code = Integer.parseInt(e.attributeValue("statusCode"));
+                String msg = e.attributeValue("statusMsg");
+                statusMsgMapping.put(code, msg);
             }
         }
     }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <status statusCode="100" statusMsg="Continue"/>
+    <status statusCode="200" statusMsg="OK"/>
+    <status statusCode="301" statusMsg="Moved Permanently"/>
+    <status statusCode="403" statusMsg="Forbidden"/>
+    <status statusCode="404" statusMsg="Not Found"/>
+    <status statusCode="500" statusMsg="Internal Server Error"/>
+</root>

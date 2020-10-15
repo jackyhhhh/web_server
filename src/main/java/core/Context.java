@@ -24,6 +24,7 @@ public class Context {
     }
 
     private static void init(){
+        System.out.println("开始初始化Context信息");
         initServletMapping();
         initMimeTypeMapping();
         initStatusMsgMapping();
@@ -44,15 +45,17 @@ public class Context {
     }
 
     private static void initServletMapping(){
+        System.out.println("开始初始化servlets信息");
        Element root = getRootFromXML("conf" + File.separator + "servletMapping.xml");
        if(root != null){
-           List<Element> list = root.elements("servlets");
+           List<Element> list = root.elements("servlet");
            for(Element e : list){
                String uri = e.attributeValue("uri");
                String classname = e.attributeValue("classname");
                servletMapping.put(uri, classname);
            }
        }
+        servletMapping.forEach((k,v) -> System.out.println(k+"->"+v));;
     }
 
     private static void initMimeTypeMapping(){

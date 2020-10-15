@@ -52,6 +52,7 @@ public class WebServer {
                 HttpRequest request = new HttpRequest(socket.getInputStream());
                 HttpResponse response = new HttpResponse(socket.getOutputStream());
                 String requestLine = request.getRequestLine();
+                System.out.println("REQUESTLINE:"+requestLine);
 
                 if(Context.servletMapping.containsKey(requestLine)){
                     String classname = Context.servletMapping.get(requestLine);

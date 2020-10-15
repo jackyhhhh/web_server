@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <servlets>
-    <servlet uri="login" classname="servlets.LoginServlet" />
-    <servlet uri="reg" classname="servlets.RegServlet" />
+    <servlet uri="/myweb/login" classname="servlets.LoginServlet" />
+    <servlet uri="/myweb/reg" classname="servlets.RegServlet" />
 </servlets>

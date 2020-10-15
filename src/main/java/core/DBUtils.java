@@ -14,7 +14,7 @@ public class DBUtils {
     private static final String DB_PASSWORD;
     private static final String JDBC_DRIVER;
     private static final String JDBC_URL;
-
+    private static Connection conn= null;
     static{
         Properties config = new Properties();
         try {
@@ -31,13 +31,14 @@ public class DBUtils {
         JDBC_URL = "jdbc:mysql://"+DB_HOST+":"+DB_PORT+"/"+DB_NAME+"?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
     }
 
-    public static Connection getConnection(){
-        Connection conn = null;
-        try {
-            Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+    public static synchronized Connection getConnection(){
+        if(conn == null){
+            try {
+                Class.forName(JDBC_DRIVER);
+                conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD);
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            }
         }
         return conn;
     }

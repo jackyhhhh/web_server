@@ -2,9 +2,7 @@ package http;
 
 import core.Context;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -75,14 +73,19 @@ public class HttpRequest {
     }
 
     private void parseContent(InputStream in){
-        String contentType = headers.get("Content-Type");
+        String contentType = this.headers.get("Content-Type");
+        System.out.println("开始解析请求正文啦啦啦啦啦啦啦啦啦:");
+        System.out.println("  contentType:"+contentType);
         if("application/x-www-form-urlencoded".equals(contentType)){
-            int contentLength = Integer.parseInt(headers.get("Content-Length"));
+            System.out.println(1);
+            int contentLength = Integer.parseInt(this.headers.get("Content-Length"));
+            System.out.println("  contentLength:"+contentLength);
             byte[] data = new byte[contentLength];
             try {
                 in.read(data);
-                String queryStr = new String(data);
-                parseQueryStr(queryStr);
+                String content = new String(data);
+                System.out.println("  content:"+content);
+                parseQueryStr(content);
             } catch (IOException e) {
                 e.printStackTrace();
             }

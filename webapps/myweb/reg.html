@@ -4,7 +4,23 @@
     <meta charset="UTF-8">
     <title>用户注册</title>
 </head>
+<style>
+    li {
+        list-style:none;
+    }
+</style>
 <body>
-<p>注册页面</p>
+<center>
+    <p>立即注册</p>
+    <form action="reg" method="post">
+        <ul>
+            <li>请设置用户名:&nbsp;<input type="text" name="username" size="50" placeholder="4-8位数字,字母或下划线"/></li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;请设置密码:&nbsp;<input type="password" name="password" size="50" placeholder="6位密码,包含字母和数字,字母区分大小写"/></li>
+            <li>再次输入密码:&nbsp;<input type="password" name="password2" size="50" placeholder="请再次输入密码确认" /></li>
+            <br>
+            <li><input type="submit" value="注册"/></li>
+        </ul>
+    </form>
+</center>
 </body>
 </html>
